@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Machiavellians</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: blue; /* Default text color */
+      }
+
+      h1 {
+        text-align: center;
+        color: red;
+        font-family: "Playfair Display", serif;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-around;
+        margin: 50px;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        width: 200px;
+        border-radius: 10px;
+      }
+
+      .column h2 {
+        text-align: center;
+        font-weight: bold; /* Bold font for section titles */
+      }
+
+      .column a {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      /* Font colors for specific sections */
+      .column:nth-child(1) a {
+        color: blue; /* Miscellaneous links color */
+        font-weight: bold; /* Bold font for Miscellaneous section */
+      }
+
+      .column:nth-child(2) a {
+        color: blue; /* Texts links color */
+        font-weight: bold; /* Bold font for Texts section */
+      }
+
+      .column:nth-child(3) a {
+        color: blue; /* Medias links color */
+        font-weight: bold; /* Bold font for Medias section */
+      }
+
+      /* Font colors for other links */
+      .column a[href$="Rules"],
+      .column a[href$="Reports"] {
+        color: yellow; /* Color for Rules and Reports */
+      }
+
+      .column a[href$="Chat"],
+      .column a[href$="Raids"] {
+        color: green; /* Color for Chat and Raids */
+      }
+
+      .column a[href$="Pics"],
+      .column a[href$="Leaks"] {
+        color: pink; /* Color for Pics and Leaks */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MACHIAVELLIANS</h1>
+
+    <div class="container">
+      <!-- Miscellaneous Column -->
+      <div class="column">
+        <h2>Miscellaneous</h2>
+        <a href="chat.html?section=miscellaneous">Rules</a>
+        <a href="chat.html?section=miscellaneous">Announcements</a>
+        <a href="chat.html?section=miscellaneous">Hierarchy</a>
+        <a href="chat.html?section=miscellaneous">Market</a>
+        <a href="chat.html?section=miscellaneous">Targets</a>
+        <a href="chat.html?section=miscellaneous">Reports</a>
+      </div>
+
+      <!-- Texts Column -->
+      <div class="column">
+        <h2>Texts</h2>
+        <a href="chat.html?section=texts">Chat 1</a>
+        <a href="chat.html?section=texts">Chat 2</a>
+        <a href="chat.html?section=texts">Chat 3</a>
+        <a href="chat.html?section=texts">Chat 4</a>
+        <a href="chat.html?section=texts">Raids</a>
+      </div>
+
+      <!-- Medias Column -->
+      <div class="column">
+        <h2>Medias</h2>
+        <a href="chat.html?section=medias">Pics</a>
+        <a href="chat.html?section=medias">Videos</a>
+        <a href="chat.html?section=medias">Memes</a>
+        <a href="chat.html?section=medias">Gore</a>
+        <a href="chat.html?section=medias">Raid Pics</a>
+        <a href="chat.html?section=medias">Leaks</a>
+      </div>
+    </div>
+  </body>
+</html>

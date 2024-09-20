@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat UI</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Include Socket.io library -->
+    <style>
+      body {
+        background-color: black;
+        font-family: Arial, sans-serif;
+      }
+      /* Your existing styles here */
+    </style>
+  </head>
+  <body>
+    <button class="back-btn" onclick="window.location.href='index.html';">
+      Back
+    </button>
+
+    <div class="chat-container">
+      <div class="username-box">
+        <input type="text" id="username" placeholder="Set username" />
+      </div>
+      <div class="chat-box" id="chat-box"></div>
+      <div class="input-container">
+        <label class="file-upload-label" for="file-upload">📷</label>
+        <input type="file" id="file-upload" accept="image/*,video/*" />
+        <input type="text" id="message-input" placeholder="Type a message..." />
+        <button class="send-btn" id="send-btn">➤</button>
+      </div>
+    </div>
+
+    <script>
+      const socket = io(); // Initialize Socket.io
+
+      // Handle incoming messages
+      socket.on("chat message", (msg) => {
+        addMessageToChat(msg);
+      });
+
+      // Load existing messages when connected
+      socket.on("chatHistory", (messages) => {
+        messages.forEach((msg) => addMessageToChat(msg));
+      });
+
+      document
+        .getElementById("send-btn")
+        .addEventListener("click", function () {
+          sendMessage();
+        });
+
+      document
+        .getElementById("message-input")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            sendMessage();
+          }
+        });
+
+      function sendMessage() {
+        const username =
+          document.getElementById("username").value || "Anonymous";
+        const message = document.getElementById("message-input").value.trim();
+
+        if (message !== "") {
+          const msg = { username, message };
+          socket.emit("chat message", msg); // Emit message to server
+          document.getElementById("message-input").value = ""; // Clear input
+        }
+      }
+
+      function addMessageToChat(msg) {
+        const chatBox = document.getElementById("chat-box");
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("chat-message");
+        messageElement.innerHTML = `<span class="username">@${msg.username}:</span> ${msg.message}`;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+      }
+
+      // Handle file uploads
+      document
+        .getElementById("file-upload")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          const username =
+            document.getElementById("username").value || "Anonymous";
+
+          if (file) {
+            const fileUrl = URL.createObjectURL(file);
+            const msg = `<span class="username">@${username}:</span><br>`;
+
+            if (file.type.startsWith("image/")) {
+              addMessageToChat({
+                username,
+                message:
+                  msg + `<img src="${fileUrl}" style="max-width: 100%;">`,
+              });
+            } else if (file.type.startsWith("video/")) {
+              addMessageToChat({
+                username,
+                message:
+                  msg +
+                  `<video controls style="max-width: 100%;"><source src="${fileUrl}" type="${file.type}"></video>`,
+              });
+            }
+
+            event.target.value = ""; // Clear input
+          }
+        });
+    </script>
+  </body>
+</html>
